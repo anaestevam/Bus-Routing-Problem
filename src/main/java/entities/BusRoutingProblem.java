@@ -26,6 +26,7 @@ public class BusRoutingProblem {
         initializeRoutes();
         Utility utility = new Utility();
         this.timeMatrix = utility.convertDistanceToTime(distanceMatrix);
+        /*Aplicar o método do vizinho mais próximo*/
         applyNearestNeighborMethod();
         this.routes = vnd(this.routes, 3);
         this.routes = vns(cloneRoutes(this.routes));
@@ -33,7 +34,7 @@ public class BusRoutingProblem {
         printFinalData();
 
 
-        //validate our data
+        //validar os dados
 
         for(Route r : routes) {
             double time = 0;
@@ -41,14 +42,14 @@ public class BusRoutingProblem {
                 time += timeMatrix[r.getRouteNodes().get(i).getNodeID()][r.getRouteNodes().get(i+1).getNodeID()] + 0.25;
 
             }
-            System.out.println("Route: " + r.getRouteID() + " has a total time of: " + time);
+            System.out.println("Rota: " + r.getRouteID() + " tem um tempo total de: " + time);
         }
         for(Route r : routes) {
             double load = 0;
             for(Node n : r.getRouteNodes()) {
                 load += n.getDemand();
             }
-            System.out.println("Route: " + r.getRouteID() + " has a load of: " + load + " remaining cap: " + r.getBus().getRemainingCap());
+            System.out.println("Rota: " + r.getRouteID() + " tem uma quantidade de: " + load + " pessoas, e limite restante de: " + r.getBus().getRemainingCap());
         }
 
 
@@ -182,6 +183,7 @@ public class BusRoutingProblem {
 
     }
 
+    /*atualizar custo da rota*/
     private void updateRouteCost(Route route) {
         double timeCost = 0D;
         for(int i = 0; i < route.getRouteSize() - 1; i++) {
@@ -197,6 +199,7 @@ public class BusRoutingProblem {
         return (findSlowestRoute(snew).getTotalRouteTimeInHrs() < findSlowestRoute(scurrent).getTotalRouteTimeInHrs());
     }
 
+    /*Encontrar a melhor opcao de dois movimentos*/
     private TwoOpt findBestTwoOptMove(ArrayList<Route> routes) {
 
         TwoOpt twoOpt = new TwoOpt();
@@ -241,18 +244,18 @@ public class BusRoutingProblem {
                             if( l != null) {
                                 costAdded = timeMatrix[a.getNodeID()][k.getNodeID()] + timeMatrix[b.getNodeID()][l.getNodeID()];
                                 costRemoved = timeMatrix[a.getNodeID()][b.getNodeID()] + timeMatrix[k.getNodeID()][l.getNodeID()];
-                            } else { //k is the last node of the route
+                            } else { //k é o último nó da rota
                                 costAdded = timeMatrix[a.getNodeID()][k.getNodeID()];
                                 costRemoved = timeMatrix[a.getNodeID()][b.getNodeID()];
                             }
 
 
-                        } else { //if routes are different
+                        } else { //se as rotas são diferentes
                             if(fromIndex == 0 && toIndex == 0) {
                                 continue;
                             }
 
-                            //if b and l are null
+
                             if(fromIndex == fromRoute.getRouteSize() - 1 && toIndex == toRoute.getRouteSize() - 1) {
                                 continue;
                             }
@@ -260,7 +263,7 @@ public class BusRoutingProblem {
                             if(capacityConstraintsAreViolated(fromRoute, fromIndex, toRoute, toIndex)) {
                                 continue;
                             }
-
+                            //se b e l são nulos
                             if(b != null && l != null) {
                                 costAdded = timeMatrix[a.getNodeID()][l.getNodeID()] + timeMatrix[k.getNodeID()][b.getNodeID()];
                                 costRemoved = timeMatrix[a.getNodeID()][b.getNodeID()] + timeMatrix[k.getNodeID()][l.getNodeID()];
@@ -291,6 +294,7 @@ public class BusRoutingProblem {
         return twoOpt;
     }
 
+    /*restrinção de capacidade*/
     private boolean capacityConstraintsAreViolated(Route route1, int index1, Route route2, int index2) {
         double firstRouteFirstSegmentLoad = 0;
         for(int i = 0; i <= index1; i++) {
@@ -316,7 +320,7 @@ public class BusRoutingProblem {
 
         return false;
     }
-
+    /*encontre o melhor movimento de troca*/
     private SwapMove findBestDecongestiveSwapMove(ArrayList<Route> routes) {
         SwapMove sm = new SwapMove();
         double bestMoveCostFrom = Double.MAX_VALUE;
@@ -326,7 +330,7 @@ public class BusRoutingProblem {
         int from = routes.indexOf(examinedRouteFrom);
         double maxTime = examinedRouteFrom.getTotalRouteTimeInHrs();
 
-        //iterate through every Route
+        //iterar por cada rota
         for(int to = 0; to < totalRoutes; to++) {
             Route examinedRouteTo = routes.get(to);
 
@@ -349,7 +353,7 @@ public class BusRoutingProblem {
                         }
                     }
 
-                    //cap constraints
+                    //restrições de limite
                     if(examinedRouteFrom.getBus().getRemainingCap() + examinedRouteFrom.getRouteNodes().get(sourceIndex).getDemand() < examinedRouteTo.getRouteNodes().get(targetIndex).getDemand()) {
                         continue;
                     }
@@ -406,7 +410,7 @@ public class BusRoutingProblem {
                     moveCostTo = costAdded2 - costRemoved2;
                     moveCost = moveCostFrom + moveCostTo;
 
-                    //decongestion
+                    //descongestionar
                     double criterion = Double.MAX_VALUE;
                     if(to == from) {
                         criterion = examinedRouteTo.getTotalRouteTimeInHrs() + moveCost;
@@ -508,7 +512,6 @@ public class BusRoutingProblem {
                     Node f = examinedRouteTo.getRouteNodes().get(targetIndex);
                     Node g = examinedRouteTo.getRouteNodes().get(targetIndex + 1);
 
-                    //na mpei ektos for
                     double costAdded1, costRemoved1;
                     if(c != null) {
                         costRemoved1 = timeMatrix[a.getNodeID()][b.getNodeID()] + timeMatrix[b.getNodeID()][c.getNodeID()] + b.getServicetime();
@@ -564,23 +567,24 @@ public class BusRoutingProblem {
 
 
 
-
+    /*encontrar a rota mais lenta*/
     public Route findSlowestRoute(ArrayList<Route> routes) {
         return routes.stream().sorted(Comparator.comparingDouble(Route::getTotalRouteTimeInHrs)).collect(Collectors.toList()).get(routes.size() - 1);
 
     }
 
+    /* imprimir dados finais*/
     private void printFinalData() {
         for(Route r : routes) {
-            System.out.println("Route " + r.getRouteID() + ": ");
+            System.out.println("Rota " + r.getRouteID() + ": ");
             System.out.println(r.getRouteNodes().toString());
-            System.out.print("Route duration in hours: ");
+            System.out.print("Rota duração em horas: ");
             System.out.printf("%.2f", r.getTotalRouteTimeInHrs());
             System.out.println("\n");
         }
 
         Route maxRoute = Collections.max(routes, Comparator.comparing(r -> r.getTotalRouteTimeInHrs()));
-        System.out.println("Longest route: " + maxRoute.getRouteID() + " (" + maxRoute.getTotalRouteTimeInHrs() + " hours)");
+        System.out.println("Rota mais longa: " + maxRoute.getRouteID() + " (" + maxRoute.getTotalRouteTimeInHrs() + " horas)");
 
     }
 
@@ -638,6 +642,7 @@ public class BusRoutingProblem {
         }
     }
 
+        /*metodo da melhor vizinhança*/
     private void applyNearestNeighborMethod() {
         for (int i = 0; i < allNodes.size()-1; i++) {
             ArrayList<Node> potentialNodes;
@@ -659,6 +664,7 @@ public class BusRoutingProblem {
         }
     }
 
+    /*encontrar N rotas mais rápidas*/
     public ArrayList<Route> findNQuickestRoutes(int n) {
         List<Route> availableRoutes = routes.stream().filter(t -> !t.isFinalised()).collect(Collectors.toList());
         List<Route> sortedList = availableRoutes.stream().sorted(Comparator.comparingDouble(Route::getTotalRouteTimeInHrs)).collect(Collectors.toList());
@@ -707,17 +713,6 @@ public class BusRoutingProblem {
             currentQuickestRoute.setFinalised(true);
             return null;
         }
-    }
-
-
-    public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-        new BusRoutingProblem(200, 25);
-        long end = System.currentTimeMillis();
-        float duration = (end - start) / 1000F;
-        System.out.println();
-        System.out.print("Algorithm execution duration in seconds: ");
-        System.out.printf("%.3f", duration);
     }
 
     public int getTotalBus() {
