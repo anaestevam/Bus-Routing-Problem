@@ -64,39 +64,21 @@ public class TwoOpt {
     public Route getFromRoute() {
         return fromRoute;
     }
-
     public void setFromRoute(Route fromRoute) {
         this.fromRoute = fromRoute;
     }
-
     public Route getToRoute() {
         return toRoute;
     }
-
     public void setToRoute(Route toRoute) {
         this.toRoute = toRoute;
     }
-
-    public int getFromIndex() {
-        return fromIndex;
-    }
-
     public void setFromIndex(int fromIndex) {
         this.fromIndex = fromIndex;
     }
-
-    public int getToIndex() {
-        return toIndex;
-    }
-
     public void setToIndex(int toIndex) {
         this.toIndex = toIndex;
     }
-
-    public double getMoveCost() {
-        return moveCost;
-    }
-
     public void setMoveCost(double moveCost) {
         this.moveCost = moveCost;
     }

@@ -1,11 +1,5 @@
 package entities;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -17,27 +11,20 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-/**
- *
- * @author mzaxa
- */
+
 public class SolutionDrawer {
 
     static void drawRoutes(ArrayList <Node> allNodes, String fileName, ArrayList<Route> routes)
     {
 
-        int VRP_Y = 800;
-        int VRP_INFO = 200;
-        int X_START = 200;
+        int BRP_Y = 800;
+        int BRP_INFO = 200;
         int X_GAP = 600;
-        int Y_START = 200;
-        int Y_GAP = 800;
         int margin = 30, VEH_INDEX;
         int marginNode = 1;
-        int drawMulti = 12;
 
-        int XXX =  VRP_INFO + X_GAP;
-        int YYY =  VRP_Y;
+        int XXX =  BRP_INFO + X_GAP;
+        int YYY =  BRP_Y;
 
 
         BufferedImage output = new BufferedImage(XXX, YYY, BufferedImage.TYPE_INT_RGB);
@@ -69,7 +56,7 @@ public class SolutionDrawer {
         }
 
         int mX = XXX - 2 * margin;
-        int mY = VRP_Y - 2 * margin;
+        int mY = BRP_Y - 2 * margin;
 
         int A, B;
         if ((maxX - minX) > (maxY - minY))
@@ -129,7 +116,7 @@ public class SolutionDrawer {
             }
         }
 
-        String cst = "Cost: " + routes.get(2).getTotalRouteTimeInHrs();
+        String cst = "Custo: " + routes.get(2).getTotalRouteTimeInHrs();
         g.drawString(cst, 10, 10);
 
         fileName = fileName + ".png";

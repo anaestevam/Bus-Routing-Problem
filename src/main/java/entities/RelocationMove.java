@@ -40,75 +40,45 @@ public class RelocationMove {
     protected boolean isCostImproving() {
         return moveCost < 0;
     }
-
-    public int getSourcePosition() {
-        return sourcePosition;
-    }
-
+    public int getSourcePosition() {return sourcePosition;}
     public void setSourcePosition(int sourcePosition) {
         this.sourcePosition = sourcePosition;
     }
-
-    public int getTargetPosition() {
-        return targetPosition;
-    }
-
+    public int getTargetPosition() {return targetPosition;}
     public void setTargetPosition(int targetPosition) {
         this.targetPosition = targetPosition;
     }
-
-    public double getMoveCost() {
-        return moveCost;
-    }
-
+    public double getMoveCost() {return moveCost;}
     public void setMoveCost(double moveCost) {
         this.moveCost = moveCost;
     }
-
     public Route getFromRoute() {
         return fromRoute;
     }
-
     public void setFromRoute(Route fromRoute) {
         this.fromRoute = fromRoute;
     }
-
     public Route getToRoute() {
         return toRoute;
     }
-
     public void setToRoute(Route toRoute) {
         this.toRoute = toRoute;
     }
-
     public double getMoveCostFrom() {
         return moveCostFrom;
     }
-
     public void setMoveCostFrom(double moveCostFrom) {
         this.moveCostFrom = moveCostFrom;
     }
-
-    public double getMoveCostTo() {
-        return moveCostTo;
-    }
-
+    public double getMoveCostTo() {return moveCostTo;}
     public void setMoveCostTo(double moveCostTo) {
         this.moveCostTo = moveCostTo;
     }
-
-    public int getFromRemainingCap() {
-        return fromRemainingCap;
-    }
-
+    public int getFromRemainingCap() {return fromRemainingCap;}
     public void setFromRemainingCap(int fromRemainingCap) {
         this.fromRemainingCap = fromRemainingCap;
     }
-
-    public int getToRemainingCap() {
-        return toRemainingCap;
-    }
-
+    public int getToRemainingCap() {return toRemainingCap;}
     public void setToRemainingCap(int toRemainingCap) {
         this.toRemainingCap = toRemainingCap;
     }
