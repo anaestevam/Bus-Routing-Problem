@@ -2,10 +2,6 @@
 
 Para o algoritmo heurítico, o método do vizinho mais próximo é usado para produzir uma solução inicial.
 ## Compilação e execução
-Linux(terminal)
-1. `$ cd src/main/java/entities`
-2. `$ javac Main.java `
-3. `$ java Main`
 
 Eclipse/Intellij
 
