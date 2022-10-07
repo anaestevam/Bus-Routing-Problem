@@ -15,12 +15,12 @@ Eclipse/Intellij
 
 ## Visualização
 
-```
+
 - As imagens na pasta **visualization** mostram como o algoritmo progride para melhorar gradativamente a solução. De alguma forma, mostra como a rota de cada ônibus muda até que uma boa solução seja encontrada.
 
 - As imagens na pasta **solutions** mostram algumas das melhores soluções que foram encontradas executando o algoritmo várias vezes.
 
-```
+
 ## Alunas:
 - Ana Luisa
 - Tarsila Samille
