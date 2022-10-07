@@ -17,7 +17,6 @@ public class Route implements Cloneable {
         this.totalRouteTimeInHrs = 0;
         this.finalised = false;
     }
-
     public boolean equals(Route otherRoute) {
         return this.routeID == otherRoute.getRouteID();
     }
@@ -45,14 +44,32 @@ public class Route implements Cloneable {
         setTotalRouteTimeInHrs(getTotalRouteTimeInHrs() + cost + node.getServicetime());
     }
 
-    public int getRouteID() {return routeID;}
-    public void setRouteID(int routeID) {this.routeID = routeID;}
-    public Bus getBus() {return bus;}
-    public ArrayList<Node> getRouteNodes() {return routeNodes;}
-    public void setRouteNodes(ArrayList<Node> routeNodes) {this.routeNodes = routeNodes;}
+    public int getRouteID() {
+        return routeID;
+    }
+
+    public void setRouteID(int routeID) {
+        this.routeID = routeID;
+    }
+
+    public Bus getBus() {
+        return bus;
+    }
+
+    public void setBus(Bus bus) {
+        this.bus = bus;
+    }
+    public ArrayList<Node> getRouteNodes() {
+        return routeNodes;
+    }
+    public void setRouteNodes(ArrayList<Node> routeNodes) {
+        this.routeNodes = routeNodes;
+    }
     public double getTotalRouteTimeInHrs() {return totalRouteTimeInHrs;}
-    public void setTotalRouteTimeInHrs(double totalRouteTimeInHrs) { this.totalRouteTimeInHrs = totalRouteTimeInHrs; }
-    public boolean isFinalised() { return finalised; }
+    public void setTotalRouteTimeInHrs(double totalRouteTimeInHrs) {
+        this.totalRouteTimeInHrs = totalRouteTimeInHrs;
+    }
+    public boolean isFinalised() {return finalised;}
     public void setFinalised(boolean finalised) {
         this.finalised = finalised;
     }
